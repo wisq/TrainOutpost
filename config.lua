@@ -1,6 +1,8 @@
 --require "defines"
 require "util"
 
+-- debug_enabled = true
+
 local Logger_lib = require "libs/logger"
 local logger = Logger_lib.new_logger("to_config.log")
 

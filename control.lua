@@ -132,7 +132,21 @@ local function place_ore_patch(global_position, resource, polygon, richness)
 	end
 end
 
+local function ensure_chunk_is_generated(global_tile_position)
+	if not (get_surface().is_chunk_generated(tile_to_chunk(global_tile_position))) then
+		get_surface().request_to_generate_chunks(global_tile_position, 1)
+	end
+end
+
 local function check_resource_position(global_position, resource)
+	-- local generated = get_surface().is_chunk_generated(tile_to_chunk(global_position))
+	-- if not generated then
+		-- logger:log("check_resource_position [ " .. resource .. "] (" .. global_position.x .. ", " .. global_position.y .. "): chunk has not yet been generated")
+		-- return true
+	-- else 
+		-- logger:log("check_resource_position [ " .. resource .. "] (" .. global_position.x .. ", " .. global_position.y .. "): " .. get_surface().get_tile(global_position.x, global_position.y).name)
+	-- end
+	
 	return get_surface().can_place_entity{name = resource, position = global_position}
 end
 
@@ -228,7 +242,7 @@ local function check_resource_polygon(global_position, polygon, resource)
 	for y = polygon:getMinY(), polygon:getMaxY() do
 		for x = polygon:getMinX(), polygon:getMaxX() do
 			if polygon:contains({x=x, y=y}) then
-				if not check_resource_position({global_position.x + x, global_position.y + y}, resource) then return false end
+				if not check_resource_position({x=global_position.x + x, y=global_position.y + y}, resource) then return false end
 			end
 		end
 	end
@@ -379,6 +393,18 @@ local function handle_region(tile_position)
 	if not check_new_region(region_coordinates) then return end
 	-- and register the region
 	register_new_region(region_coordinates)
+	
+	-- iterate all chunks and ensure they are there
+	-- logger:log("starting forced chunk generation: [" .. region_coordinates.x .. "," .. region_coordinates.y .. "]")
+	-- logger:dump()
+	-- for x = 0, to.config.region_size do
+		-- for y = 0, to.config.region_size do
+			-- local tile_within_region_position = {x=x*CHUNK_SIZE, y=y*CHUNK_SIZE}
+			-- ensure_chunk_is_generated(region_position_to_global(region_coordinates, tile_within_region_position))
+		-- end
+	-- end
+	-- logger:log("done with forced chunk generation: [" .. region_coordinates.x .. "," .. region_coordinates.y .. "]")
+	-- logger:dump()
 	
 	loop_resources_for_region(region_coordinates)
 	spawn_enemies_in_region(region_coordinates)
