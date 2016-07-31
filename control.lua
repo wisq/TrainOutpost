@@ -1,4 +1,4 @@
-require "defines"
+--require "defines"
 require "config"
 
 local Logger_lib = require "libs/logger"
@@ -84,7 +84,7 @@ end
 
 --- surface access ---
 local function get_surface()
-	return game.get_surface("nauvis")
+	return game.surfaces["nauvis"]
 end
 
 

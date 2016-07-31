@@ -1,4 +1,4 @@
-require "defines"
+--require "defines"
 require "util"
 
 local Logger_lib = require "libs/logger"
@@ -20,11 +20,11 @@ to.config.resource_starting_area_size = {width = 64, height = 64}
 
 to.config.enemy_protection_zone_by_starting_area = {
 	["none"] = 0,
-	["very-small"] = 200,
-	["small"] = 400,
-	["medium"] = 600,
-	["big"] = 800,
-	["very-big"] = 1000,
+	["very-low"] = 200,			-- very-small
+	["low"] = 400,				-- small
+	["normal"] = 600,			-- medium
+	["high"] = 800,				-- big
+	["very-high"] = 1000,		-- very-big
 }
 
 to.config.generation_frequency = {
@@ -38,27 +38,27 @@ to.config.generation_frequency = {
 
 to.config.generation_size = {
 	["none"]		= 0,
-	["very-small"]	= 0.35,
-	["small"]		= 0.7,
-	["medium"]		= 1,
-	["big"]			= 1.5,
-	["very-big"]	= 2,
+	["very-low"]	= 0.35,
+	["low"]		= 0.7,
+	["normal"]		= 1,
+	["high"]			= 1.5,
+	["very-high"]	= 2,
 }
 
 to.config.generation_richness = {
-	["very-poor"]	= {min=150, max=350},
-	["poor"]		= {min=250, max=500},
-	["regular"]		= {min=400, max=600},
-	["good"]		= {min=600, max=800},
-	["very-good"]	= {min=800, max=1000},
+	["very-low"]	= {min=150, max=350},
+	["low"]		= {min=250, max=500},
+	["normal"]		= {min=400, max=600},
+	["high"]		= {min=600, max=800},
+	["very-high"]	= {min=800, max=1000},
 }
 
 to.config.generation_richness_liquid = {
-	["very-poor"]	= {min=2500, max=4500},
-	["poor"]		= {min=3500, max=5500},
-	["regular"]		= {min=4500, max=6500},
-	["good"]		= {min=5500, max=7500},
-	["very-good"]	= {min=6500, max=8500},
+	["very-low"]	= {min=2500, max=4500},
+	["low"]		= {min=3500, max=5500},
+	["normal"]		= {min=4500, max=6500},
+	["high"]		= {min=5500, max=7500},
+	["very-high"]	= {min=6500, max=8500},
 }
 
 to.config.global_size_distance_factor = 1.35
