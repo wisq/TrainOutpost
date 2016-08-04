@@ -1,4 +1,4 @@
-require "defines"
+--require "defines"
 
 local Logger = {prefix='log_'}
 Logger.__index = Logger
