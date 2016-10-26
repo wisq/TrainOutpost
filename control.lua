@@ -631,10 +631,31 @@ remote.add_interface("TR", {
 		end
 	end,
 	test = function()
-		for k,v in pairs(game.entity_prototypes) do 
-			logger:log(tostring(k) .. " --> " .. v.name .. ": " .. tostring(v.type))
+		if debug_enabled then
+			-- for copper_x = 0, 1000*CHUNK_SIZE do
+				-- get_surface().create_entity{name="copper-ore", position={copper_x, 0}}
+				-- if get_surface().can_place_entity{name="coal", position={copper_x, 1}} then
+					-- get_surface().create_entity{name="coal", position={copper_x, 1}}
+				-- end
+			-- end
+		
+			local x_offset = 16
+			local y_offset = 16
+			for x = 0, 1000 do
+				local chunk_position = {x, 0}
+				local tile_position = {x*CHUNK_SIZE+x_offset, y_offset}
+				local generated = get_surface().is_chunk_generated(chunk_position)
+				local can_place = get_surface().can_place_entity{name="iron-ore", position=tile_position}
+				logger:log("chunk [" .. x .. ",0]: " .. tostring(generated) .. " | " .. tostring(can_place))
+				for i = 0, CHUNK_SIZE do
+					local pos = {x*CHUNK_SIZE + i, y_offset+2}
+					if get_surface().can_place_entity{name="iron-ore", position=pos} then
+						get_surface().create_entity{name="iron-ore", position=pos}
+					end
+				end
+			end
+			logger:dump()
 		end
-		logger:dump()
 		game.player.print("done")
 	end,
 	weights = function()
