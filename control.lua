@@ -160,8 +160,12 @@ local function is_ore(resource_name)
 end
 
 local function is_fluid(resource_name)
-	return game.entity_prototypes[resource_name] and 
-		game.entity_prototypes[resource_name].resource_category == "basic-fluid"
+	if game.entity_prototypes[resource_name] then
+		local category = game.entity_prototypes[resource_name].resource_category
+		return category == "basic-fluid" or category == "water"
+	else
+		return false
+	end
 end
 
 local function is_liquid(resource_name)
