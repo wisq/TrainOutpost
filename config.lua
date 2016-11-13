@@ -78,6 +78,7 @@ to.config.max_retries = 20
 local base 		= require "modconfigs.base"
 local bobores 	= require "modconfigs.bobores"
 local bobenemies	= require "modconfigs.bobenemies"
+local bobplates 	= require "modconfigs.bobplates"
 
 function to.config.init_ore()
 	to.config.resources_default = {
@@ -95,6 +96,7 @@ function to.config.init_ore()
 	if not to.config.resources then to.config.resources = {} end
 	base:update_ores(to.config.resources)
 	if game.entity_prototypes["tin-ore"] then bobores:update_ores(to.config.resources) end
+	if game.entity_prototypes["ground-water"] then bobplates:update_ores(to.config.resources) end
 end
 
 function to.config.init_enemies()
