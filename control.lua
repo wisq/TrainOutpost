@@ -209,6 +209,12 @@ local function spawn_enemies_at_position(global_position)
 			end
 		end
 	end
+
+	-- avoid crashing if Peace Mod is installed
+	if not global.to_enemies.generation_size then
+		logger:log("Peace Mod (or similar) detected, not spawning enemies")
+		return
+	end
 	
 	-- make sure we do not spawn anything in the starting area
 	if 	global_position.x > global.enemy_protection_zone.x_min and
